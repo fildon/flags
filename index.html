@@ -43,16 +43,23 @@
         const leftArm = document.getElementById("left-arm");
         const rightArm = document.getElementById("right-arm");
 
+        let leftArmAngle = 0;
+        let rightArmAngle = 0;
         setInterval(() => {
-          leftArm.setAttribute(
-            "transform",
-            `rotate(${Math.random() * 360} 350 250)`
-          );
-          rightArm.setAttribute(
-            "transform",
-            `rotate(${Math.random() * 360} 250 250)`
-          );
-        }, 100);
+          const leftFrom = leftArmAngle;
+          const leftTo = Math.random() * 360;
+          leftArmAngle = leftTo;
+          leftArm.setAttribute("from", `${leftFrom} 350 250`);
+          leftArm.setAttribute("to", `${leftTo} 350 250`);
+          leftArm.beginElement();
+
+          const rightFrom = rightArmAngle;
+          const rightTo = Math.random() * 360;
+          rightArmAngle = rightTo;
+          rightArm.setAttribute("from", `${rightFrom} 250 250`);
+          rightArm.setAttribute("to", `${rightTo} 250 250`);
+          rightArm.beginElement();
+        }, 1000);
       };
     </script>
   </head>
@@ -64,7 +71,7 @@
         <circle cx="300" cy="210" r="25" />
         <!-- Torso -->
         <rect x="265" y="240" width="70" height="160" rx="20" ry="21.333334" />
-        <g id="left-arm">
+        <g>
           <!-- Shoulder -->
           <rect width="20" height="70" x="340" y="240" rx="10" />
           <!-- Arm+Pole -->
@@ -75,8 +82,18 @@
           <polygon points="344,411 261,494 261,411" fill="#ffff00" />
           <!-- Red triangle -->
           <polygon points="344,411 261,494 344,494" fill="#ff0000" />
+          <animateTransform
+            id="left-arm"
+            attributeName="transform"
+            attributeType="XML"
+            type="rotate"
+            from="0 350 250"
+            to="0 350 250"
+            dur="0.5s"
+            fill="freeze"
+          />
         </g>
-        <g id="right-arm">
+        <g>
           <!-- Shoulder -->
           <rect width="20" height="70" x="240" y="240" rx="10" />
           <!-- Arm+Pole -->
@@ -87,6 +104,16 @@
           <polygon points="256,411 339,494 339,411" fill="#ffff00" />
           <!-- Red triangle -->
           <polygon points="256,411 339,494 256,494" fill="#ff0000" />
+          <animateTransform
+            id="right-arm"
+            attributeName="transform"
+            attributeType="XML"
+            type="rotate"
+            from="0 250 250"
+            to="0 250 250"
+            dur="0.5s"
+            fill="freeze"
+          />
         </g>
       </svg>
     </main>
