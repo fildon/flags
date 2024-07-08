@@ -38,28 +38,55 @@
         min-width: min(90vw, 60ch);
       }
     </style>
+    <script>
+      window.onload = () => {
+        const leftArm = document.getElementById("left-arm");
+        const rightArm = document.getElementById("right-arm");
+
+        setInterval(() => {
+          leftArm.setAttribute(
+            "transform",
+            `rotate(${Math.random() * 360} 350 250)`
+          );
+          rightArm.setAttribute(
+            "transform",
+            `rotate(${Math.random() * 360} 250 250)`
+          );
+        }, 100);
+      };
+    </script>
   </head>
   <body>
     <h1>Flags</h1>
     <main>
       <svg viewBox="0 0 600 500">
-        <circle data-label="head" cx="300" cy="210" r="25" />
-        <rect
-          data-label="torso"
-          x="265"
-          y="240"
-          width="70"
-          height="160"
-          rx="20"
-          ry="21.333334"
-        />
-        <g data-label="left-arm">
-          <rect width="20" height="70" x="240" y="250" rx="10" />
-          <rect width="10" height="200" x="245" y="280" />
+        <!-- Head -->
+        <circle cx="300" cy="210" r="25" />
+        <!-- Torso -->
+        <rect x="265" y="240" width="70" height="160" rx="20" ry="21.333334" />
+        <g id="left-arm">
+          <!-- Shoulder -->
+          <rect width="20" height="70" x="340" y="240" rx="10" />
+          <!-- Arm+Pole -->
+          <rect width="10" height="215" x="345" y="280" />
+          <!-- Black square back ground, to give a border effect -->
+          <polygon points="345,410 345,495 260,495 260,410" />
+          <!-- Yellow triangle -->
+          <polygon points="344,411 261,494 261,411" fill="#ffff00" />
+          <!-- Red triangle -->
+          <polygon points="344,411 261,494 344,494" fill="#ff0000" />
         </g>
-        <g data-label="right-arm">
-          <rect width="20" height="70" x="340" y="250" rx="10" />
-          <rect width="10" height="200" x="345" y="280" />
+        <g id="right-arm">
+          <!-- Shoulder -->
+          <rect width="20" height="70" x="240" y="240" rx="10" />
+          <!-- Arm+Pole -->
+          <rect width="10" height="215" x="245" y="280" />
+          <!-- Black square back ground, to give a border effect -->
+          <polygon points="255,410 255,495 340,495 340,410" />
+          <!-- Yellow triangle -->
+          <polygon points="256,411 339,494 339,411" fill="#ffff00" />
+          <!-- Red triangle -->
+          <polygon points="256,411 339,494 256,494" fill="#ff0000" />
         </g>
       </svg>
     </main>
