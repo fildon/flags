@@ -4,8 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flags</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body,
+      h1,
+      p {
+        margin-block-end: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        line-height: 1.5;
+      }
+
+      h1 {
+        text-wrap: balance;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        > * {
+          max-width: 60ch;
+        }
+      }
+
+      svg {
+        border: 1px solid black;
+        min-width: min(90vw, 60ch);
+      }
+    </style>
   </head>
   <body>
-    hello world
+    <h1>Flags</h1>
+    <main>
+      <svg viewBox="0 0 600 500">
+        <circle data-label="head" cx="300" cy="210" r="25" />
+        <rect
+          data-label="torso"
+          x="265"
+          y="240"
+          width="70"
+          height="160"
+          rx="20"
+          ry="21.333334"
+        />
+        <g data-label="left-arm">
+          <rect width="20" height="70" x="240" y="250" rx="10" />
+          <rect width="10" height="200" x="245" y="280" />
+        </g>
+        <g data-label="right-arm">
+          <rect width="20" height="70" x="340" y="250" rx="10" />
+          <rect width="10" height="200" x="345" y="280" />
+        </g>
+      </svg>
+    </main>
   </body>
 </html>
