@@ -40,14 +40,10 @@
     </style>
     <script>
       window.onload = () => {
-        const leftArm = document.getElementById("left-arm");
-        const rightArm = document.getElementById("right-arm");
-
         let leftArmAngle = 0;
         let rightArmAngle = 0;
-        setInterval(() => {
+        const moveArmsTo = (leftTo, rightTo) => {
           const leftFrom = leftArmAngle;
-          let leftTo = Math.random() * 360;
 
           // These checks ensure that we take the shortest path around the circle
           if (leftTo - leftFrom > 180) leftTo -= 360;
@@ -60,7 +56,6 @@
           leftArm.beginElement();
 
           const rightFrom = rightArmAngle;
-          let rightTo = Math.random() * 360;
 
           // These checks ensure that we take the shortest path around the circle
           if (rightTo - rightFrom > 180) rightTo -= 360;
@@ -71,13 +66,86 @@
           rightArm.setAttribute("from", `${rightFrom} 250 250`);
           rightArm.setAttribute("to", `${rightTo} 250 250`);
           rightArm.beginElement();
-        }, 1000);
+        };
+        const startRandomAnimation = () =>
+          setInterval(() => {
+            moveArmsTo(Math.random() * 360, Math.random() * 360);
+          }, 1000);
+        let randomAnimationInterval = startRandomAnimation();
+
+        let currentMode = "random-mode";
+        const keyMap = {
+          a: [0, 45],
+          b: [0, 90],
+          c: [0, 135],
+          d: [0, 180],
+          e: [225, 0],
+          f: [270, 0],
+          g: [315, 0],
+          h: [45, 90],
+          i: [45, 135],
+          j: [270, 180],
+          k: [180, 45],
+          l: [225, 45],
+          m: [270, 45],
+          n: [315, 45],
+          o: [135, 90],
+          p: [180, 90],
+          q: [225, 90],
+          r: [270, 90],
+          s: [315, 90],
+          t: [180, 135],
+          u: [225, 135],
+          v: [315, 180],
+          w: [270, 225],
+          x: [315, 225],
+          y: [270, 135],
+          z: [270, 315],
+        };
+        document.addEventListener("keyup", ({ key }) => {
+          if (currentMode !== "controlled-mode") return;
+          if (/[a-z]/.exec(key)) {
+            const [left, right] = moveArmsTo(...keyMap[key]);
+          }
+        });
+        const randomMode = document.getElementById("random-mode");
+        randomMode.onchange = () => {
+          clearInterval(randomAnimationInterval);
+          randomAnimationInterval = startRandomAnimation();
+          currentMode = "random-mode";
+        };
+        const controlledMode = document.getElementById("controlled-mode");
+        controlledMode.onchange = () => {
+          clearInterval(randomAnimationInterval);
+          currentMode = "controlled-mode";
+        };
+        const leftArm = document.getElementById("left-arm");
+        const rightArm = document.getElementById("right-arm");
       };
     </script>
   </head>
   <body>
     <h1>Flags</h1>
     <main>
+      <label>
+        Random mode
+        <input
+          id="random-mode"
+          type="radio"
+          name="mode"
+          value="random"
+          checked
+        />
+      </label>
+      <label>
+        Controlled mode
+        <input
+          id="controlled-mode"
+          type="radio"
+          name="mode"
+          value="controlled"
+        />
+      </label>
       <svg viewBox="0 0 600 500">
         <!-- Head -->
         <circle cx="300" cy="210" r="25" />
@@ -101,7 +169,7 @@
             type="rotate"
             from="0 350 250"
             to="0 350 250"
-            dur="0.5s"
+            dur="0.1s"
             fill="freeze"
           />
         </g>
@@ -123,7 +191,7 @@
             type="rotate"
             from="0 250 250"
             to="0 250 250"
-            dur="0.5s"
+            dur="0.1s"
             fill="freeze"
           />
         </g>
