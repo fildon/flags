@@ -47,15 +47,27 @@
         let rightArmAngle = 0;
         setInterval(() => {
           const leftFrom = leftArmAngle;
-          const leftTo = Math.random() * 360;
-          leftArmAngle = leftTo;
+          let leftTo = Math.random() * 360;
+
+          // These checks ensure that we take the shortest path around the circle
+          if (leftTo - leftFrom > 180) leftTo -= 360;
+          if (leftFrom - leftTo > 180) leftTo += 360;
+
+          // Normalize the stored angle to 0-360 range before storing
+          leftArmAngle = (leftTo + 360) % 360;
           leftArm.setAttribute("from", `${leftFrom} 350 250`);
           leftArm.setAttribute("to", `${leftTo} 350 250`);
           leftArm.beginElement();
 
           const rightFrom = rightArmAngle;
-          const rightTo = Math.random() * 360;
-          rightArmAngle = rightTo;
+          let rightTo = Math.random() * 360;
+
+          // These checks ensure that we take the shortest path around the circle
+          if (rightTo - rightFrom > 180) rightTo -= 360;
+          if (rightFrom - rightTo > 180) rightTo += 360;
+
+          // Normalize the stored angle to 0-360 range before storing
+          rightArmAngle = (rightTo + 360) % 360;
           rightArm.setAttribute("from", `${rightFrom} 250 250`);
           rightArm.setAttribute("to", `${rightTo} 250 250`);
           rightArm.beginElement();
